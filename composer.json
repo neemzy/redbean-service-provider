@@ -1,0 +1,22 @@
+{
+    "name": "neemzy/redbean-service-provider",
+    "description": "RedBean ORM service provider for Silex micro-framework",
+    "minimum-stability": "dev",
+
+    "authors": [
+        {
+            "name": "neemzy",
+            "email": "tom.panier@free.fr"
+        }
+    ],
+
+    "require": {
+        "php": ">=5.4.0"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Neemzy\\Silex\\Provider\\RedBean\\": "src/"
+        }
+    }
+}
