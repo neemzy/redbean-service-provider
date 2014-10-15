@@ -40,7 +40,7 @@ class Instance
         $return = call_user_func_array('\RedBean_Facade::'.$method, $params);
 
         // We're dealing with a bean, so let's bind our app to it
-        if (in_array($method, ['dispense', 'load', 'dup']) && ($return instanceof \RedBean_OODBBean)) {
+        if ($return instanceof \RedBean_OODBBean) {
             $model = $return->box();
 
             if ($model instanceof Model) {
