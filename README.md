@@ -30,7 +30,7 @@ As of now, this project is mainly a dumb wrapper which aims to make RedBean avai
 
 ## Models
 
-The provider ships with a `Model` class which extends `RedBean_SimpleModel`, which you can inherit from instead of the latter. Doing so makes the provider `box()` every requested bean (through `dispense` and `load` methods) and bind the app to the resulting model instance. This means two things :
+The provider ships with a `Model` class which extends `RedBean_SimpleModel`, which you can inherit from instead of the latter. Doing so makes the provider `box()` every requested bean and bind the app to the resulting model instance. This means two things :
 
 - You are now able to access your Silex app from inside your models' classes, by requesting `$this->app`
-- Calling `dispense` or `load` now directly returns a proper model instance, instead of a bean you have to `box()` manually
+- Calling `dispense`, `load` or `dup` now directly returns a proper model instance, instead of a bean you have to `box()` manually
