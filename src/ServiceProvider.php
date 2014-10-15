@@ -8,27 +8,6 @@ use Silex\ServiceProviderInterface;
 class ServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @var Patchwork\RedBean\Instance RedBean "instance"
-     */
-    protected $instance;
-
-
-
-    /**
-     * Constructor
-     *
-     * Crafts RedBean instance with given database connection parameters
-     *
-     * @return void
-     */
-    public function __construct($connectionString, $username, $password)
-    {
-        $this->instance = new Instance($connectionString, $username, $password);
-    }
-
-
-
-    /**
      * Registers this service on the given app
      *
      * @param Silex\Application $app Application instance
@@ -38,7 +17,7 @@ class ServiceProvider implements ServiceProviderInterface
     public function register(Application $app)
     {
         $app['redbean'] = $app->share(function () use ($app) {
-            return $this->instance;
+            return new Instance($app);
         });
     }
 
