@@ -14,7 +14,8 @@ $app->register(
     [
         'redbean.database' => $database,
         'redbean.username' => $username,
-        'redbean.password' => $password
+        'redbean.password' => $password,
+        'redbean.namespace' => $namespace // optional
     ]
 );
 
@@ -34,3 +35,5 @@ The provider ships with a `Model` class which extends `RedBean_SimpleModel`, whi
 
 - You are now able to access your Silex app from inside your models' classes, by requesting `$this->app`
 - Calling any method that previously returned an instance of `RedBean_OODBBean` now directly returns a proper model instance
+
+If you specified the `redbean.namespace` parameter, your models' class namespace will also be set up without having to declare a `REDBEAN_MODEL_PREFIX` constant. Otherwise, model classes will not have any prefix (not even the default `Model_`).

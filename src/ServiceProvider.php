@@ -17,6 +17,9 @@ class ServiceProvider implements ServiceProviderInterface
     public function register(Application $app)
     {
         $app['redbean'] = $app->share(function () use ($app) {
+            $namespace = isset($app['redbean.namespace']) ? $app['redbean.namespace'] : '';
+            $this->setModelNamespace($namespace);
+
             return new Instance($app);
         });
     }
@@ -30,5 +33,17 @@ class ServiceProvider implements ServiceProviderInterface
      */
     public function boot(Application $app)
     {
+    }
+
+
+
+    /**
+     * Instantiates a model formatter with the right namespace and registers it to RedBean
+     *
+     * @return void
+     */
+    protected function setModelNamespace($namespace)
+    {
+        \RedBean_ModelHelper::setModelFormatter(new ModelFormatter($namespace));
     }
 }
