@@ -29,6 +29,20 @@ class Instance
 
 
 
+    private function boxIfModel(\RedBean_OODBBean $bean)
+    {
+        $model = $bean->box();
+
+        if (!($model instanceof Model)) {
+            return $bean;
+        }
+
+        $model->bindApp($this->app);
+        return $model;
+    }
+
+
+
     /**
      * Magic method
      * Passes all calls to RedBean's singleton
@@ -39,13 +53,14 @@ class Instance
     {
         $return = call_user_func_array('\RedBean_Facade::'.$method, $params);
 
-        // We're dealing with a bean, so let's bind our app to it
+        // If we are dealing with beans, we bind our app to them
         if ($return instanceof \RedBean_OODBBean) {
-            $model = $return->box();
-
-            if ($model instanceof Model) {
-                $model->bindApp($this->app);
-                $return = $model;
+            return $this->boxIfModel($return);
+        } else if (is_array($return)) {
+            foreach ($return as $key => $value) {
+                if ($value instanceof \RedBean_OODBBean) {
+                    $return[$key] = $this->boxIfModel($value);
+                }
             }
         }
 
